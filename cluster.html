@@ -30,10 +30,10 @@ map.on('load', function() {
     // Heatmap layers also work with a vector tile source.
     map.addSource('crashes', {
         "type": "geojson",
-        "data": "./crash2015.json",
+        "data": "./crashGeoOnly.json",
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 5
+        clusterRadius: 20
     });
 
     map.addLayer({
@@ -41,8 +41,24 @@ map.on('load', function() {
         "source": "crashes",
         "type": "circle",
         "paint": {
-            "circle-radius": 3,
-            "circle-color": "#007cbf"
+            "circle-radius": [
+                "step",
+                ["get", "point_count"],
+                20,
+                100,
+                30,
+                750,
+                40
+            ],
+            "circle-color": [
+                "step",
+                ["get", "point_count"],
+                "#51bbd6",
+                100,
+                "#f1f075",
+                750,
+                "#f28cb1"
+            ]
         }
     });
 });
