@@ -21,8 +21,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmF5dGVycmlsbCIsImEiOiJjam5nbnk5cGEwNTZiM3Bxe
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v9',
-    center: [-122.6587, 45.5122],
-    zoom: 11
+    center: [-122.6187, 45.5122],
+    zoom: 12
 });
 
 map.on('load', function() {
@@ -33,7 +33,7 @@ map.on('load', function() {
         "data": "./crashGeoOnly.json",
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 5
+        clusterRadius: 10
     });
 
     map.addLayer({
@@ -56,8 +56,10 @@ map.on('load', function() {
                 "#51bbd6",
                 100,
                 "#f1f075",
-                750,
-                "#f28cb1"
+                200,
+                "#f28cb1",
+                300,
+                "#ff0000"
             ],
             "circle-opacity": .5
         }
