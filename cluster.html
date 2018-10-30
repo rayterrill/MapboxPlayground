@@ -22,7 +22,7 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v9',
     center: [-122.6587, 45.5122],
-    zoom: 12
+    zoom: 11
 });
 
 map.on('load', function() {
@@ -33,7 +33,7 @@ map.on('load', function() {
         "data": "./crashGeoOnly.json",
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 20
+        clusterRadius: 5
     });
 
     map.addLayer({
@@ -44,11 +44,11 @@ map.on('load', function() {
             "circle-radius": [
                 "step",
                 ["get", "point_count"],
-                20,
+                5,
                 100,
-                30,
-                750,
-                40
+                10,
+                200,
+                15
             ],
             "circle-color": [
                 "step",
@@ -58,7 +58,20 @@ map.on('load', function() {
                 "#f1f075",
                 750,
                 "#f28cb1"
-            ]
+            ],
+            "circle-opacity": .5
+        }
+    });
+
+    map.addLayer({
+        id: "cluster-count",
+        type: "symbol",
+        source: "crashes",
+        filter: ["has", "point_count"],
+        layout: {
+            "text-field": "{point_count_abbreviated}",
+            "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+            "text-size": 12
         }
     });
 });
